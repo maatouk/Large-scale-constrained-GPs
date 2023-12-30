@@ -1,7 +1,7 @@
 ############################################################
 #### Function for MCMC samples using ESS and LS algo #######
 ############################################################
-setwd("~/Large-scale-constrained-GPs/R codes")
+
 source('all_base_functions.R')
 library(Matrix) # crossprod function
 library(tmg) # HMC sampler
