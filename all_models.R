@@ -777,6 +777,8 @@ mon.inc.LS.ESS=function(y,x,N1,M,nu,l,eta,mcmc,brn,thin,tau.in,sig.in,xi0.in,xi.
   if(missing(verbose))
     verbose=TRUE
   
+  if(missing(prior))
+  prior='Fast.LS'
   if(missing(l))
     l=l_est(nu,range=range(my_knots),0.05)
   
