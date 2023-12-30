@@ -1,5 +1,6 @@
 # Large-scale-constrained-GPs
 
+# Description:
 This repository contains an R Package for large-scale Gaussian process regression under linear inequality constraints for shape restricted function estimate based on Maatouk et al. (2023a), Maatouk et al. (2023b) and Maatouk and Bay (2017).
 
 # Note:
