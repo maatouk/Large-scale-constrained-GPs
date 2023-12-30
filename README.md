@@ -1,6 +1,5 @@
 # Large-scale constrained Gaussian processes for shape-restriced function estimation
 
-# General description:
 This repository contains R codes and functions for implementing the large-scale constrained Gaussian processes for shape restricted function estimate based on Maatouk et al. (2023a), Maatouk et al. (2023b), Ray et al. (2020), and Maatouk and Bay (2017).
 
 # Description of the associated R files:
