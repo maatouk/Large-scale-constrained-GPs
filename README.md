@@ -12,7 +12,7 @@ samp.WC (draws a sample based on sampling scheme developed in Wood and Chan [199
 samplers: the proposed approach denoted LS.ESS (black solid curve) and the HMC tmg (black dashed curve).
 5. Figure 'LSKLE': Average running time of sampling a MVN over 25 replicates as a function of the dimension N. The
 proposed approach, "Fast.LS", has been compared to the recently effcient "LS.KLE" approach developed in Maatouk
-et al (2023).
+et al (2023a).
 
 
    For more details on the codes or the functions, refer to the associated R files.
