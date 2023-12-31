@@ -8,6 +8,9 @@ Fast.LS (draws a very large Gaussian vector prior based on Maatouk et al. [2023b
 samp.WC (draws a sample based on sampling scheme developed in Wood and Chan [1994]), ESS (draws a sample using elliptical slice sampler by Murray et al. [2010]), nu.MH2 (draws posterior samples on the hyperparameters using Metropolis–Hastings and inverse Cholesky factor). One can find detailed description of each functions in the file.
 2. 'all_models.R' file contains all models that implemented the large-scale constrained Gaussian processes for shape-restricted function estimation with and without hyperparameters updates.
 3. 'Illustrative-examples.R' file contains the code of all numerical examples shown in the paper.
+4. Figure 'comp_monot_HMC_LS.pdf': Running time per McMC iteration (in seconds) plotted against the sample size (n) for two McMC
+samplers: the proposed approach denoted LS.ESS (black solid curve) and the HMC tmg (black dashed curve).
+
 
    For more details on the codes or the functions, refer to the associated R files.
 
