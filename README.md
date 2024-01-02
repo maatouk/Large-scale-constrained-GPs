@@ -20,7 +20,7 @@ et al (2023a).
 # Illustrative examples
 [Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/LSKLE-eps-converted-to.pdf): Average running time of sampling a MVN over 25 replicates as a function of the dimension N. The proposed approach, "Fast.LS" developed in Maatouk et al (2023b), has been compared to the recently efficient LS.KLE approach developed in Maatouk et al (2023a). The Matérn covariance function is employed with a smoothness parameter $\nu=1.5$.
 
-[Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/comp_monot_HMC_LS-eps-converted-to.pdf): Running time per McMC iteration (in seconds) plotted against the sample size (n) for two McMC samplers: the proposed approach denoted LS.ESS (black solid curve) and the HMC tmg (black dashed curve). The monotonicity nondecreasing constraint is considered. The dimension N is fixed at $\lceiling n/8\rceiling$.
+[Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/comp_monot_HMC_LS-eps-converted-to.pdf): Running time per McMC iteration (in seconds) plotted against the sample size (n) for two McMC samplers: the proposed approach denoted LS.ESS (black solid curve) and the HMC tmg (black dashed curve). The monotonicity nondecreasing constraint is considered. The dimension N is fixed at $\lceil n/8\rceil$.
 
 # Note:
 Part of this work was conducted with the support of the consortium in Applied Mathematics CIROQUO, gathering partners in technological research (BRGM, CEA, IFPEN, IRSN, Safran, Storengy) and academia (CNRS, Ecole Centrale de Lyon, Mines Saint-Etienne, University of Grenoble, University of Nice, University of Toulouse) around advanced methods for Computer Experiments. [link]( https://doi.org/10.5281/zenodo.65812).
