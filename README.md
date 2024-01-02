@@ -18,7 +18,7 @@ et al (2023a).
    For more details on the codes or the functions, refer to the associated R files.
 
 # Illustrative examples
-[Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/LSKLE-eps-converted-to.pdf): Average running time of sampling a MVN over 25 replicates as a function of the dimension N. The proposed approach, "Fast.LS" developed in Maatouk et al (2023b), has been compared to the recently efficient LS.KLE approach developed in Maatouk et al (2023a). The Matérn covariance function is employed with a smoothness parameter $\nu=1.5$.
+[Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/LSKLE-eps-converted-to.pdf): Average running time of sampling a MVN over 25 replicates as a function of the dimension N. The proposed approach, "Fast.LS" developed in Maatouk et al (2023b), has been compared to the recently efficient LS.KLE approach developed in Maatouk et al (2023a). The Matérn covariance function is employed with a smoothness parameter ν = 1.5.
 
 [Myimage](https://github.com/maatouk/Large-scale-constrained-GPs/blob/main/comp_monot_HMC_LS-eps-converted-to.pdf): Running time per McMC iteration (in seconds) plotted against the sample size (n) for two McMC samplers: the proposed approach denoted LS.ESS (black solid curve) and the HMC tmg (black dashed curve). The monotonicity nondecreasing constraint is considered. The dimension N is fixed at $\lceil n/8\rceil$.
 
