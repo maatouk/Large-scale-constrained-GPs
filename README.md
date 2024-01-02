@@ -38,6 +38,8 @@ Maatouk, H. and Rullière, D. and Bay, X. (2023a). "Sampling large hyperplane‐
 
 Maatouk, H. and Rullière, D. and Bay, X. (2023b). "Large-scale constrained Gaussian processes for shape-restricted function estimation". [preprint](https://hal.science/hal-04348962/file/LS-CGP.pdf)
 
-Ray, P. and D., Pati and A. Bhattacharya (2020). "Efficient Bayesian shape-restricted function estimation with constrained Gaussian process priors". Statistics Computing 30, 839–853. [doi](https://link.springer.com/article/10.1007/s11222-020-09922-0) 
+Ray, P. and Pati, D. and Bhattacharya, A. (2020). "Efficient Bayesian shape-restricted function estimation with constrained Gaussian process priors". Statistics Computing 30, 839–853. [doi](https://link.springer.com/article/10.1007/s11222-020-09922-0) 
 
 Wood, A. and Chan, G. (1994). "Simulation of Stationary Gaussian Processes in [0,1]^d". Journal of Computational and Graphical Statistics. [doi](https://www.jstor.org/stable/1390903)
+
+Zhou, S. and Pati, D. and Bhattacharya, A. (2023) "A Mass-Shifting Phenomenon of Truncated Multivariate Normal Priors". Journal of the American Statistical Association. [doi](https://www.tandfonline.com/doi/abs/10.1080/01621459.2022.2129059)
