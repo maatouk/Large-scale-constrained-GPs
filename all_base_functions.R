@@ -7,7 +7,6 @@
 ### And all related and dependant functions are here
 
 ### Required libraries:
-# library(fields)
 library(FastGP) # for tinv and rcpp_rmvnorm function
 library(rSPDE) # Matern cov fct
 library(mvtnorm);library(MASS)
@@ -26,11 +25,6 @@ library(quadprog) # for the MAP (quad optim pb)
 k <- function(h,nu,l){
   matern.covariance(h,sqrt(2*nu)/l,nu=nu,sigma=1)
 }
-
-#Matern kernel with smoothness nu and length-scale l:
-# MK = function(x, y ,l, nu){
-#   ifelse(abs(x-y)>0, (sqrt(2*nu)*abs(x-y)/l)^nu/(2^(nu-1)*gamma(nu))*besselK(x=abs(x-y)*sqrt(2*nu)/l, nu=nu), 1.0)
-# }
 
 # function for uniroot:
 fl=function(l,para){ 
