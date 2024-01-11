@@ -147,13 +147,6 @@ circ_vec=function(knot,g,nu,l,tausq){
   return(x)
 }
 
-# Function for finding a g such that C is nnd:
-eig.eval=function(knot,g,nu,l,tausq){
-  vec=circ_vec(knot,g,nu,l,tausq)
-  C=circulant(vec)
-  ev=min(eigen(C)$values)
-  return(list("vec" = vec, "min.eig.val" = ev))
-}
 
 # Function for finding a g such that C is nnd:
 # without forming the circulant matrix and without computing eigen values:
