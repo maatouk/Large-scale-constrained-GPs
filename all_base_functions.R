@@ -27,24 +27,24 @@ k <- function(h,nu,l){
 }
 
 # function for uniroot:
-fl=function(l,para){ 
+fl <- function(l,para){ 
   #para[1]=x, para[2]=y and para[3]=nu of MK : Matern kernel function;
   #para[4]=pre-specified value of the correlation
-  a=k(abs(para[1]-para[2]),para[3],l)
+  a <- k(abs(para[1]-para[2]),para[3],l)
   return(a-para[4])
 }
 
 # function for estimating l:
-l_est=function(nu,range,val){
+l_est <- function(nu,range,val){
   # nu : smoothness; range : c(min, max) of the range of variable
   # val : pre-specified value of the correlation between the maximum seperation
-  para=c(range[1],range[2],nu,val)
-  rl=uniroot(f=fl,interval = c(0.000001,100000),para)
+  para <- c(range[1],range[2],nu,val)
+  rl <- uniroot(f=fl,interval = c(0.000001,100000),para)
   return(rl$root)
 }
 
 # Covariance matrix
-covmat=function(knot,nu,l){
+covmat <- function(knot,nu,l){
   k(outer(knot,knot,'-'),nu=nu,l=l) 
 }
 
@@ -96,7 +96,7 @@ fcth <- function(x,u,N){
   n <- length(x)
   h <- matrix(NA, nrow = n, ncol = N)
   for(j in 1 : N){
-    h[, j] = hi(x,u,i=j)
+    h[, j] <- hi(x,u,i=j)
   }
   return(h)
 }
@@ -106,7 +106,7 @@ fctphi <- function(x,u,N){
   n <- length(x)
   phi <- matrix(NA, nrow = n, ncol = N)
   for(j in 1 : N){
-    phi[, j] = phii_v(x,u,i=j)
+    phi[, j] <- phii_v(x,u,i=j)
   }
   return(phi)
 }
@@ -115,17 +115,17 @@ fctphi <- function(x,u,N){
 
 # Order of the circulant matrix:
 # minimum value of g and m so that G can be embedded into C
-min_g=function(knot){
-  N=length(knot)
-  g=ceiling(log(2*N,2))   #m=2^g and m>=2(n-1) : Wood & Chan notation; 
+min_g <- function(knot){
+  N <- length(knot)
+  g <- ceiling(log(2*N,2))   #m=2^g and m>=2(n-1) : Wood & Chan notation; 
   #since we are going upto n and not stopping at (n-1), the condition is modified!
   return("g" = g)
 }
 
 # forming the circulant matrix:
-circulant=function(x){
-  n = length(x)
-  mat = matrix(0, n, n)
+circulant <- function(x){
+  n <- length(x)
+  mat <- matrix(0, n, n)
   for (j in 1:n) {
     mat[j, ] <- c(x[-(1:(n+1-j))], x[1:(n+1-j)])
   }
@@ -133,48 +133,48 @@ circulant=function(x){
 }
 
 # Function for forming the vector of circulant matrix:
-circ_vec=function(knot,g,nu,l,tausq){
-  delta_N=1/(length(knot)-1)
-  m=2**g
-  cj=integer()
+circ_vec <- function(knot,g,nu,l,tausq){
+  delta_N <- 1/(length(knot)-1)
+  m <- 2**g
+  cj <- integer()
   for(j in 1:m){
     if(j<=(m/2))
       cj[j]=(j-1)*delta_N
     else
       cj[j]=(m-(j-1))*delta_N
   }
-  x=(tausq*k(cj,nu,l))
+  x <- (tausq*k(cj,nu,l))
   return(x)
 }
 
 
 # Function for finding a g such that C is nnd:
 # without forming the circulant matrix and without computing eigen values:
-C.eval=function(knot,g,nu,l,tausq){
-  vec=circ_vec(knot,g,nu,l,tausq)
-  val=fft(vec) # eigenvalues will be real as the circulant matrix formed by the 
+C.eval <- function(knot,g,nu,l,tausq){
+  vec <- circ_vec(knot,g,nu,l,tausq)
+  val <- fft(vec) # eigenvalues will be real as the circulant matrix formed by the 
   # vector is by construction is symmetric!
-  ev=min(Re(val))
+  ev <- min(Re(val))
   return(list("vec" = vec, "min.eig.val" = ev))
 }
 
 
-nnd_C=function(knot,g,nu,l,tausq){
-  C.vec=C.eval(knot,g,nu,l,tausq)$vec
-  eval=C.eval(knot,g,nu,l,tausq)$min.eig.val
+nnd_C <- function(knot,g,nu,l,tausq){
+  C.vec <- C.eval(knot,g,nu,l,tausq)$vec
+  eval <- C.eval(knot,g,nu,l,tausq)$min.eig.val
   if(eval>0)
     return(list("cj" = C.vec,"g" = g))
   else{
-    g=g+1
+    g <- g+1
     nnd_C(knot,g,nu,l,tausq)
   }
 }
 
 # computing the eigen values of C using FFT:
-eigval=function(knot,nu,l,tausq){
-  g=min_g(knot)
-  c.j=nnd_C(knot,g,nu,l,tausq)$cj
-  lambda=Re(fft(c.j))
+eigval <- function(knot,nu,l,tausq){
+  g <- min_g(knot)
+  c.j <- nnd_C(knot,g,nu,l,tausq)$cj
+  lambda <- Re(fft(c.j))
   if(min(lambda)>0)
     return(lambda)
   else
@@ -185,23 +185,23 @@ eigval=function(knot,nu,l,tausq){
 #################################################################
 ########## Samples drawn using Wood and Chan Algorithm ##########
 #################################################################
-samp.WC=function(knot,nu,l,tausq,sseedWC=1){
-  N=length(knot)
-  lambda=eigval(knot,nu,l,tausq)
-  m=length(lambda)
-  samp.vec=rep(0,N)
+samp.WC <- function(knot,nu,l,tausq,sseedWC=1){
+  N <- length(knot)
+  lambda <- eigval(knot,nu,l,tausq)
+  m <- length(lambda)
+  samp.vec <- rep(0,N)
   set.seed(sseedWC)
-  a=rep(0,m)
-  a[1]=sqrt(lambda[1])*rnorm(1)/sqrt(m)
-  a[(m/2)+1]=sqrt(lambda[(m/2)+1])*rnorm(1)/sqrt(m)
-  i=sqrt(as.complex(-1))
+  a <- rep(0,m)
+  a[1] <- sqrt(lambda[1])*rnorm(1)/sqrt(m)
+  a[(m/2)+1] <- sqrt(lambda[(m/2)+1])*rnorm(1)/sqrt(m)
+  i <- sqrt(as.complex(-1))
   for(j in 2:(m/2)){
-    uj=rnorm(1); vj=rnorm(1)
-    a[j]=(sqrt(lambda[j])*(uj + i*vj))/(sqrt(2*m))
-    a[m+2-j]=(sqrt(lambda[j])*(uj - i*vj))/(sqrt(2*m))
+    uj <- rnorm(1); vj <- rnorm(1)
+    a[j] <- (sqrt(lambda[j])*(uj + i*vj))/(sqrt(2*m))
+    a[m+2-j] <- (sqrt(lambda[j])*(uj - i*vj))/(sqrt(2*m))
   }
-  samp=fft(a)
-  samp.vec=Re(samp[1:N])
+  samp <- fft(a)
+  samp.vec <- Re(samp[1:N])
   return(samp.vec)
 }
 #############################################
@@ -210,49 +210,49 @@ samp.WC=function(knot,nu,l,tausq,sseedWC=1){
 #############################################
 ########## Functions for using ESS ##########
 #############################################
-ESS = function(beta,nu_ess,y,X,sigsq,eta,seeds=1){
-  thetamin = 0; 
-  thetamax = 2*pi;
+ESS <- function(beta,nu_ess,y,X,sigsq,eta,seeds=1){
+  thetamin <- 0; 
+  thetamax <- 2*pi;
   
   set.seed(seeds)
-  u = runif(1)
-  logy = loglik(y,X,sigsq,eta,beta) + log(u); 
+  u <- runif(1)
+  logy <- loglik(y,X,sigsq,eta,beta) + log(u); 
   
-  theta = runif(1,thetamin,thetamax); 
-  thetamin = theta - 2*pi; 
-  thetamax = theta;
-  betaprime = beta*cos(theta) + nu_ess*sin(theta);
+  theta <- runif(1,thetamin,thetamax); 
+  thetamin <- theta - 2*pi; 
+  thetamax <- theta;
+  betaprime <- beta*cos(theta) + nu_ess*sin(theta);
   
   while(loglik(y,X,sigsq,eta,betaprime) <= logy){
     if(theta < 0)
-      thetamin = theta
+      thetamin <- theta
     else
-      thetamax = theta
-    theta = runif(1,thetamin,thetamax)
-    betaprime = beta*cos(theta) + nu_ess*sin(theta)
+      thetamax <- theta
+    theta <- runif(1,thetamin,thetamax)
+    betaprime <- beta*cos(theta) + nu_ess*sin(theta)
   }
   return(betaprime)       
 }
 
-ESS.dec = function(beta,nu_ess,y,X,sigsq,eta,seeds=1){
-  thetamin = 0;
-  thetamax = 2*pi;
+ESS.dec <- function(beta,nu_ess,y,X,sigsq,eta,seeds=1){
+  thetamin <- 0;
+  thetamax <- 2*pi;
   set.seed(seeds)
-  u = runif(1)
-  logy = loglik2(y,X,sigsq,eta,beta) + log(u);
+  u <- runif(1)
+  logy <- loglik2(y,X,sigsq,eta,beta) + log(u);
   
-  theta = runif(1,thetamin,thetamax);
-  thetamin = theta - 2*pi;
-  thetamax = theta;
-  betaprime = beta*cos(theta) + nu_ess*sin(theta);
+  theta <- runif(1,thetamin,thetamax);
+  thetamin <- theta - 2*pi;
+  thetamax <- theta;
+  betaprime <- beta*cos(theta) + nu_ess*sin(theta);
   
   while(loglik2(y,X,sigsq,eta,betaprime) <= logy){
     if(theta < 0)
-      thetamin = theta
+      thetamin <- theta
     else
-      thetamax = theta
-    theta = runif(1,thetamin,thetamax)
-    betaprime = beta*cos(theta) + nu_ess*sin(theta)
+      thetamax <- theta
+    theta <- runif(1,thetamin,thetamax)
+    betaprime <- beta*cos(theta) + nu_ess*sin(theta)
   }
   return(betaprime)
 }
@@ -263,18 +263,18 @@ ESS.dec = function(beta,nu_ess,y,X,sigsq,eta,seeds=1){
 ## Defining the loglik function to be used in ESS:
 ## loglik calculates the log of the likelihood:
 ## nondecreasing constraints
-loglik=function(y,X,sigsq,eta,beta){
-  mu=y-(X%*%beta)
-  val=-sum(log(1+exp(-eta*beta)))-
+loglik <- function(y,X,sigsq,eta,beta){
+  mu <- y-(X%*%beta)
+  val <- -sum(log(1+exp(-eta*beta)))-
     # eta*sum(beta)-sum(log(1+exp(eta*beta)))-
     sum(mu^2)/(2*sigsq)
   return(val)
 }
 
 ## nonincreasing constraints:
-loglik2=function(y,X,sigsq,eta,beta){
-  mu=y-(X%*%beta)
-  val=-sum(log(1+exp(eta*beta)))-sum(mu^2)/(2*sigsq)
+loglik2 <- function(y,X,sigsq,eta,beta){
+  mu <- y-(X%*%beta)
+  val <- -sum(log(1+exp(eta*beta)))-sum(mu^2)/(2*sigsq)
   return(val)
 }
 
