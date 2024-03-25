@@ -26,7 +26,7 @@ et al (2023a).
 Part of this work was conducted with the support of the consortium in Applied Mathematics CIROQUO, gathering partners in technological research (BRGM, CEA, IFPEN, IRSN, Safran, Storengy) and academia (CNRS, Ecole Centrale de Lyon, Mines Saint-Etienne, University of Grenoble, University of Nice, University of Toulouse) around advanced methods for Computer Experiments. [link]( https://doi.org/10.5281/zenodo.65812).
 
 # Authors:
-Hassan Maatouk (CYU Cergy-Paris Université).
+Hassan Maatouk (CY Tech - CY Cergy-Paris Université).
 
 # Maintainer: 
 Hassan Maatouk, hassan.maatouk@cyu.fr
