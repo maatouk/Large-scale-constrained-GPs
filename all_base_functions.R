@@ -22,30 +22,30 @@ library(quadprog) # for the MAP (quad optim pb)
 # maximum seperation is some small value, say 0.05
 
 ## Matern family cov fct with \nu smooth para & theta length corr
-k <- function(h,nu,l){
-  matern.covariance(h,sqrt(2*nu)/l,nu=nu,sigma=1)
+k <- function(h, nu, l){
+  matern.covariance(h, sqrt(2 * nu) / l, nu = nu, sigma = 1)
 }
 
 # function for uniroot:
-fl <- function(l,para){ 
+fl <- function(l, para){ 
   #para[1]=x, para[2]=y and para[3]=nu of MK : Matern kernel function;
   #para[4]=pre-specified value of the correlation
-  a <- k(abs(para[1]-para[2]),para[3],l)
-  return(a-para[4])
+  a <- k(abs(para[1]-para[2]), para[3], l)
+  return(a - para[4])
 }
 
 # function for estimating l:
-l_est <- function(nu,range,val){
+l_est <- function(nu, range, val){
   # nu : smoothness; range : c(min, max) of the range of variable
   # val : pre-specified value of the correlation between the maximum seperation
-  para <- c(range[1],range[2],nu,val)
-  rl <- uniroot(f=fl,interval = c(0.000001,100000),para)
+  para <- c(range[1], range[2], nu, val)
+  rl <- uniroot(f=fl, interval = c(0.000001, 100000), para)
   return(rl$root)
 }
 
 # Covariance matrix
-covmat <- function(knot,nu,l){
-  k(outer(knot,knot,'-'),nu=nu,l=l) 
+covmat <- function(knot, nu, l){
+  k(outer(knot, knot, '-'), nu = nu, l = l) 
 }
 
 
@@ -60,29 +60,29 @@ covmat <- function(knot,nu,l){
 h <- function(x){
   ifelse(x >= -1 & x <= 1, 1-abs(x), 0)
 }
-hi <- function(x,u,i){
+hi <- function(x, u, i){
   delta <- (max(u)-min(u))/(length(u)-1)
-  h((x - u[i])/delta)
+  h((x - u[i]) / delta)
 }
 ## integral of hat basis functions phi
 ## phi functions
-phi1 <- function(x,u){
-  delta <- (max(u)-min(u))/(length(u)-1)
+phi1 <- function(x, u){
+  delta <- (max(u) - min(u)) / (length(u)-1)
   ifelse(x >= u[1] & x <= u[2], delta/2-((u[2]-x)*hi(x,u,1))/2, delta/2)
 }
-phi <- function(x,u,i){
+phi <- function(x, u, i){
   delta <- (max(u)-min(u))/(length(u)-1)
-  ifelse(x<=u[i]-delta,0,
-         ifelse(x>=u[i]-delta & x<=u[i],(x-u[i]+delta)^2/(2*delta),
-                ifelse(x>=u[i] & x<= u[i]+delta,delta-
-                         (-x+u[i]+delta)^2/(2*delta),delta)))
+  ifelse (x <= u[i] - delta, 0,
+         ifelse (x >= u[i] - delta & x <= u[i], (x-u[i]+delta)^2/(2*delta),
+                ifelse (x >= u[i] & x<= u[i] + delta, delta -
+                         (-x+u[i]+delta)^2/(2*delta), delta)))
 }
-phii_v <- function(x,u,i){
-  if(i == 1){
+phii_v <- function(x, u, i){
+  if (i == 1){
     phi1(x,u)
   }
   else {
-    phi(x,u,i)
+    phi(x, u, i)
   }
 }
 
@@ -92,11 +92,11 @@ phii_v <- function(x,u,i){
 ####### function of design matrix ############
 ##############################################
 ## fct design matrix (hat basis function)
-fcth <- function(x,u,N){
+fcth <- function(x, u, N){
   n <- length(x)
   h <- matrix(NA, nrow = n, ncol = N)
-  for(j in 1 : N){
-    h[, j] <- hi(x,u,i=j)
+  for (j in 1 : N){
+    h[, j] <- hi(x, u, i = j)
   }
   return(h)
 }
