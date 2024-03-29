@@ -36,7 +36,7 @@ Maatouk, H. and Bay, X. (2017). "Gaussian process emulators for computer experim
 
 Maatouk, H. and Rullière, D. and Bay, X. (2023a). "Sampling large hyperplane‐truncated multivariate normal distributions", Computational Statistics. [doi](https://link.springer.com/article/10.1007/s00180-023-01416-7)
 
-Maatouk, H. and Rullière, D. and Bay, X. (2023b). "Large-scale constrained Gaussian processes for shape-restricted function estimation". [preprint](https://hal.science/hal-04348962/file/LS-CGP.pdf)
+Maatouk, H. and Rullière, D. and Bay, X. (2023b). "Large-scale constrained Gaussian processes for shape-restricted function estimation". [preprint]([https://hal.science/hal-04348962/file/LS-CGP.pdf](https://hal.science/hal-04348962/document))
 
 Ray, P. and Pati, D. and Bhattacharya, A. (2020). "Efficient Bayesian shape-restricted function estimation with constrained Gaussian process priors". Statistics Computing 30, 839–853. [doi](https://link.springer.com/article/10.1007/s11222-020-09922-0) 
 
