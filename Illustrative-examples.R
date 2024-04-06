@@ -37,7 +37,7 @@ if(illustr5split=='yes'){
   M <- 5  # nb of subdomains
   nu <- 1.5 # smoothness parameter Matern Kernel (MK)
   theta <- l_est(nu,c(0,1),0.05)#0.4 # length-scale parameter MK
-  u <- seq(0,1,length=M*N1)
+  u <- seq(from = 0, to = 1, length = M * N1)
   U <- function(i){
     u[((i-1)*N1+1):(i*N1)]
   }
