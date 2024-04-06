@@ -799,7 +799,7 @@ mon.inc.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(1, mean = mean(y_star), sd = sqrt(sig/n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig/n))
     
     # sampling \sigma^2:
     y0 <- y_star - xi0
@@ -975,7 +975,7 @@ mon.inc.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(1, mean(y_star), sqrt(sig / n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig / n))
     
     # sampling \sigma^2:
     y0 <- y_star - xi0
@@ -1155,7 +1155,7 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(n = 1, mean(y_star), sd = sqrt(sig / n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig / n))
     
     # sampling \sigma^2:
     if (missing(sig.fix))
