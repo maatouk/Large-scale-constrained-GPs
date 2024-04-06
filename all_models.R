@@ -766,12 +766,7 @@ mon.inc.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig
   if (missing(xi0.fix) && missing(xi0.in))
     xi0.in <- 0
   if (missing(xi.fix) && missing(xi.in)) {
-    ## posterior Mode
-    # XXK <- crossprod(X)/sig.in+K_inv/tau.in
-    # Amat <- diag(N)
-    # z_star.in <- solve.QP(XXK,dvec=as.vector(t(X)%*%y)/sig.in,
-    #                       Amat=t(Amat),bvec=c(rep(0,N)),meq=0)$solution
-    xi.in <- pmax(0, mvrnorm(1, rep(0, N), K))#z_star.in#
+    xi.in <- pmax(0, mvrnorm(1, rep(0, N), K))
   }
   
   tau <- tau.in
@@ -947,12 +942,7 @@ mon.inc.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
   if (missing(xi0.fix) && missing(xi0.in))
     xi0.in <- 0
   if (missing(xi.fix) && missing(xi.in)) {
-    ## posterior Mode
-    # XXK <- crossprod(X)/sig.in+K_inv/tau.in
-    # Amat <- diag(N)
-    # z_star.in <- solve.QP(XXK,dvec=as.vector(t(X)%*%y)/sig.in,
-    #                       Amat=t(Amat),bvec=c(rep(0,N)),meq=0)$solution
-    xi.in=pmax(0,mvrnorm(1,rep(0,N),K))#z_star.in#
+    xi.in <- pmax(0, mvrnorm(1, rep(0, N), K))
   }
   
   tau <- tau.in
