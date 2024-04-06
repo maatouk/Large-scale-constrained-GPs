@@ -38,7 +38,7 @@ pos.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
   n <- length(y)
   N <- N1 * M
   delta <- 1 / (N - 1)
-  my_knots <- seq(0, 1, by = delta)
+  my_knots <- seq(from = 0, to = 1, by = delta)
   X <- fcth(x, u = my_knots, N)
   
   if (missing(nu))
@@ -205,8 +205,8 @@ pos.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi.
     N <- ceiling(n / 2) - 1
   
   delta <- 1 / (N - 1)
-  my_knots <- seq(0, 1, by = delta)
-  X <- fcth(x, u = my_knots, N)
+  my_knots <- seq(from = 0, to = 1, by = delta)
+  X <- fcth(x = x, u = my_knots, N = N)
   
   if (missing(nu))
     stop ("nu needs to be supplied")
