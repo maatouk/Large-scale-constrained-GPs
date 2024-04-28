@@ -17,7 +17,7 @@ library(restrictedMVN) ## Gibbs sampler
 ### For nonnegative functions estimation 
 #---------------------------------------------------
 pos.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi.in,
-                       tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol){
+                       tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N1: number of knots first subdomain; M: nb of subdomain
   # nu: smoothness parameter of Matern; l: length-scale parameter of Matern
@@ -87,7 +87,7 @@ pos.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
     tau.in <- 1
   if (missing(sig.fix) && missing(sig.in))
     sig.in <- 1
-  if (missing(xi.fix) && missing(xi.in)){
+  if (missing(xi.fix) && missing(xi.in)) {
     ## posterior Mode
     XXK <- crossprod(X)/sig.in + K_inv/tau.in
     Amat <- diag(N)
@@ -137,7 +137,7 @@ pos.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
       fhat_sam[, (i - brn)/thin] <- Xxi
     }
     
-    if (i %% 1000 == 0 && verbose){
+    if (i %% 1000 == 0 && verbose) {
       print(i)
     }
     
@@ -183,7 +183,7 @@ pos.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
 ### For nonnegative functions estimation 
 #---------------------------------------------------
 pos.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi.in,
-                       tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol){
+                       tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N: the number of knots
   # nu:smoothness parameter of Matern; l:length-scale parameter of Matern
@@ -253,7 +253,7 @@ pos.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi.
     tau.in <- 1
   if (missing(sig.fix) && missing(sig.in))
     sig.in <- 1
-  if (missing(xi.fix) && missing(xi.in)){
+  if (missing(xi.fix) && missing(xi.in)) {
     ## posterior Mode
     XXK <- crossprod(X)/sig.in + K_inv/tau.in
     Amat <- diag(N)
@@ -526,7 +526,7 @@ pos.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, tau.i
 ### For nonnegative functions estimation HMC sampler
 #---------------------------------------------------
 pos.HMC <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in,
-                    tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol){
+                    tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot, tol) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N: the number of knots
   # nu:smoothness parameter of Matern; l:length-scale parameter of Matern
@@ -593,7 +593,7 @@ pos.HMC <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in,
     tau.in <- 1
   if (missing(sig.fix) && missing(sig.in))
     sig.in <- 1
-  if (missing(xi.fix) && missing(xi.in)){
+  if (missing(xi.fix) && missing(xi.in)) {
     ## posterior Mode
     XXK <- crossprod(X)/sig.in + K_inv/tau.in
     Amat <- diag(N)
@@ -691,7 +691,7 @@ pos.HMC <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in,
 #---------------------------------------------------
 ### Function for drawing posterior samples using ESS and LS with fixed hyperparameters:
 mon.inc.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi0.in, xi.in, xi0.fix,
-                           tau.fix, sig.fix, xi.fix, verbose, return.plot, tol, sseed){
+                           tau.fix, sig.fix, xi.fix, verbose, return.plot, tol, sseed) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N1: the number of knots of the first subdomain
   # M: nb of subdomain
@@ -869,7 +869,7 @@ mon.inc.LS.ESS <- function(y, x, N1, M, nu, l, eta, mcmc, brn, thin, tau.in, sig
 ### Function for drawing posterior samples using ESS and WC with fixed hyperparameters
 #---------------------------------------------------
 mon.inc.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in, xi0.in, xi.in, xi0.fix,
-                           tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot){
+                           tau.fix, sig.fix, xi.fix, sseed, verbose, return.plot) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N: the number of knots
   # nu:smoothness parameter of Matern; l:length-scale parameter of Matern
@@ -1048,7 +1048,7 @@ mon.inc.WC.ESS <- function(y, x, N, nu, l, eta, mcmc, brn, thin, tau.in, sig.in,
 ### Function for drawing posterior samples using HMC with fixed hyperparameters:
 #---------------------------------------------------
 mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0.in,
-                     tau.fix, sig.fix, xi.fix, xi0.fix, sseed, verbose, return.plot, tol){
+                     tau.fix, sig.fix, xi.fix, xi0.fix, sseed, verbose, return.plot, tol) {
   # y: Response variable; x: vector to form design matrix X (n x N)
   # N: number of knots 
   # nu: smoothness parameter of Matern; l:length-scale parameter of Matern
@@ -1232,7 +1232,7 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
 #---------------------------------------------------
 
 mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, tau.in, sig.in, xi0.in, xi.in, xi0.fix,
-                               tau.fix, sig.fix, xi.fix, verbose, return.plot, tol, sseed){
+                               tau.fix, sig.fix, xi.fix, verbose, return.plot, tol, sseed) {
   # y: Response variable; x: vector to form design matrix \phi (n X N)
   # N1: number of knots first subdomain; M: nb of subdomain
   # eta: parameter of the spproximation function of the indicator functions
@@ -1292,7 +1292,7 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
     sig.in <- 1
   if (missing(xi0.fix) && missing(xi0.in))
     xi0.in <- 0
-  if (missing(xi.fix) && missing(xi.in)){
+  if (missing(xi.fix) && missing(xi.in)) {
     # prior covariance K:
     K <- covmat(knot = my_knots, nu = nu.in, l = l.in)
     xi.in <- pmax(0, mvrnorm(1, rep(0, N), K))
@@ -1416,7 +1416,7 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
 ### Function for drawing posterior samples using ESS and WC with hyperparameter updates:
 #---------------------------------------------------
 mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.in, sig.in, xi0.in, xi.in, xi0.fix,
-                               tau.fix, sig.fix, xi.fix, verbose, return.plot, sseed){
+                               tau.fix, sig.fix, xi.fix, verbose, return.plot, sseed) {
   # y: Response variable; x: vector to form design matrix \phi (n X N)
   # N: number of knots 
   # eta: parameter of the spproximation function of the indicator functions
@@ -1476,7 +1476,7 @@ mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.i
     sig.in <- 1
   if (missing(xi0.fix) && missing(xi0.in))
     xi0.in <- 0
-  if (missing(xi.fix) && missing(xi.in)){
+  if (missing(xi.fix) && missing(xi.in)) {
     # prior covariance K:
     K <- covmat(knot = my_knots, nu = nu.in, l = l.in)
     xi.in <- pmax(0, mvrnorm(1, rep(0, N), K))
