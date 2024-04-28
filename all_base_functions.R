@@ -22,7 +22,7 @@ library(quadprog) # for the MAP (quad optim pb)
 
 ## Matern family cov fct with \nu smooth para & theta length corr
 k <- function(h, nu, l){
-  matern.covariance(h, sqrt(2 * nu) / l, nu = nu, sigma = 1)
+  matern.covariance(h, sqrt(2 * nu)/l, nu = nu, sigma = 1)
 }
 
 ## function for uniroot:
@@ -56,20 +56,20 @@ h <- function(x) {
   ifelse(x >= -1 & x <= 1, 1 - abs(x), 0)
 }
 hi <- function(x, u, i) {
-  delta <- (max(u) - min(u)) / (length(u) - 1)
-  h((x - u[i]) / delta)
+  delta <- (max(u) - min(u))/(length(u) - 1)
+  h((x - u[i])/delta)
 }
 ## integral of hat basis functions phi functions
 phi1 <- function(x, u) {
-  delta <- (max(u) - min(u)) / (length(u) - 1)
-  ifelse(x >= u[1] & x <= u[2], delta/2 - ((u[2] - x) * hi(x, u, 1)) / 2, delta / 2)
+  delta <- (max(u) - min(u))/(length(u) - 1)
+  ifelse(x >= u[1] & x <= u[2], delta/2 - ((u[2] - x) * hi(x, u, 1))/2, delta/2)
 }
 phi <- function(x, u, i) {
-  delta <- (max(u) - min(u)) / (length(u) - 1)
+  delta <- (max(u) - min(u))/(length(u) - 1)
   ifelse (x <= u[i] - delta, 0,
-          ifelse (x >= u[i] - delta & x <= u[i], (x - u[i] + delta)^2 / (2 * delta),
+          ifelse (x >= u[i] - delta & x <= u[i], (x - u[i] + delta)^2/(2 * delta),
                   ifelse(x >= u[i] & x <= u[i] + delta, delta - 
-                           (-x + u[i] + delta)^2 / (2 * delta), delta)))
+                           (-x + u[i] + delta)^2/(2 * delta), delta)))
 }
 phii_v <- function(x, u, i) {
   if (i == 1) {
@@ -186,14 +186,14 @@ samp.WC <- function(knot, nu, l, tausq, sseedWC = 1) {
   samp.vec <- rep(0, N)
   set.seed(sseedWC)
   a <- rep(0, m)
-  a[1] <- sqrt(lambda[1]) * rnorm(1) / sqrt(m)
-  a[(m/2)+1] <- sqrt(lambda[(m/2)+1]) * rnorm(1) / sqrt(m)
+  a[1] <- sqrt(lambda[1]) * rnorm(1)/sqrt(m)
+  a[(m/2)+1] <- sqrt(lambda[(m/2)+1]) * rnorm(1)/sqrt(m)
   i <- sqrt(as.complex(-1))
   for (j in 2 : (m/2)) {
     uj <- rnorm(1)
     vj <- rnorm(1)
-    a[j] <- (sqrt(lambda[j]) * (uj + i * vj)) / (sqrt(2 * m))
-    a[m + 2 - j] <- (sqrt(lambda[j]) * (uj - i * vj)) / (sqrt(2 * m))
+    a[j] <- (sqrt(lambda[j]) * (uj + i * vj))/(sqrt(2 * m))
+    a[m + 2 - j] <- (sqrt(lambda[j]) * (uj - i * vj))/(sqrt(2 * m))
   }
   samp <- fft(a)
   samp.vec <- Re(samp[1 : N])
@@ -274,14 +274,14 @@ loglik <- function(y, X, sigsq, eta, beta) {
   mu <- y - X %*% beta
   val <- -sum(log(1 + exp(-eta * beta)))-
     # eta*sum(beta)-sum(log(1+exp(eta*beta)))-
-    sum(mu^2) / (2 * sigsq)
+    sum(mu^2)/(2 * sigsq)
   return(val)
 }
 
 ## Logliklihood for decreasing constraints
 loglik2 <- function(y, X, sigsq, eta, beta) {
   mu <- y - X %*% beta
-  val <- -sum(log(1 + exp(eta * beta))) - sum(mu^2) / (2 * sigsq)
+  val <- -sum(log(1 + exp(eta * beta))) - sum(mu^2)/(2 * sigsq)
   return(val)
 }
 
@@ -298,7 +298,7 @@ nu.MH1 <- function(nu.in, l.in, tau.in, xi.in, Kmat, knot, range.nu = c(0.5, 1),
     r <- exp(sum(log(diag(Linv.cand))) - sum(log(diag(Linv)))) * (nu.cand/nu.in)
     t1 <- sum((t(Linv.cand) %*% xi.in)^2)
     t2 <- sum((t(Linv) %*% xi.in)^2)
-    r <- r * exp(- (t1 - t2) / (2 * tau.in))
+    r <- r * exp(- (t1 - t2)/(2 * tau.in))
     alpha <- min(r, 1)
   }
   else
@@ -324,7 +324,7 @@ nu.MH2 <- function(nu.in, l.in, tau.in, xi.in, knot, range.nu = c(0.5, 2.5), ran
     Linv.cand <- solve(chol(Kcand))#tinv(Kcand)#inv_chol(Kcand)
     t1 <- sum((t(Linv.cand) %*% xi.in)^2)#sum((t(xi.in)%*%Linv.cand%*%xi.in)^2)
     t2 <- sum((t(Linv) %*% xi.in)^2)
-    r <- exp(sum(log(diag(Linv.cand))) - sum(log(diag(Linv))) - ((t1 - t2) / (2 * tau.in))) * (nu.cand / nu.in) * (l.cand / l.in)
+    r <- exp(sum(log(diag(Linv.cand))) - sum(log(diag(Linv))) - ((t1 - t2)/(2 * tau.in))) * (nu.cand/nu.in) * (l.cand/l.in)
     alpha <- min(r, 1)
   }
   else {
