@@ -1066,9 +1066,9 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
   y <- y[order(x)]
   x <- sort(x)
   if (missing(N))
-    N <- ceiling(n / 2) - 1
+    N <- ceiling(n/2) - 1
   
-  delta <- 1 / (N - 1)
+  delta <- 1/(N - 1)
   my_knots <- seq(from = 0, to = 1, by = delta)
   X <- fctphi(x = x, u = my_knots, N = N)
   
@@ -1103,7 +1103,7 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
   if (missing(thin))
     thin <- 1
   em <- mcmc + brn
-  ef <- mcmc / thin
+  ef <- mcmc/thin
   
   if (!missing(tau.fix))
     tau.in <- tau.fix
@@ -1145,8 +1145,8 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
     y_tilde <- y - xi0
     # sampling Xi:
     if (missing(xi.fix)) {
-      M <- crossprod(X) / sig + K_inv / tau
-      r <- as.vector(t(X) %*% y_tilde) / sig
+      M <- crossprod(X)/sig + K_inv/tau
+      r <- as.vector(t(X) %*% y_tilde)/sig
       xi_out <- as.vector(rtmg(n = 1, M = M, r = r, initial = xi_in, f = f, g = g, burn.in = 0))
     } else {
       xi_out <- xi_in
@@ -1155,24 +1155,24 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig / n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig/n))
     
     # sampling \sigma^2:
     if (missing(sig.fix))
       y0 <- y_star - xi0
-    sig <- 1 / rgamma(1, shape = n / 2, rate = sum(y0^2) / 2)
+    sig <- 1/rgamma(1, shape = n/2, rate = sum(y0^2)/2)
     
     # sampling \tau^2:
     if (missing(tau.fix))
-      tau <- 1 / rgamma(1, shape = N / 2, rate = (t(xi_out) %*% K_inv %*% xi_out) / 2)
+      tau <- 1/rgamma(1, shape = N/2, rate = (t(xi_out) %*% K_inv %*% xi_out)/2)
     
     # storing MCMC samples:
     if (i > brn && i %% thin == 0) {
-      xi_sam[, (i - brn) / thin] <- xi_out
-      xi0_sam[(i - brn) / thin] <- xi0
-      sig_sam[(i - brn) / thin] <- sig
-      tau_sam[(i - brn) / thin] <- tau
-      fhat_sam[, (i - brn) / thin] <- xi0 + Xxi
+      xi_sam[, (i - brn)/thin] <- xi_out
+      xi0_sam[(i - brn)/thin] <- xi0
+      sig_sam[(i - brn)/thin] <- sig
+      tau_sam[(i - brn)/thin] <- tau
+      fhat_sam[, (i - brn)/thin] <- xi0 + Xxi
     }
     
     if (i %% 1000 == 0 && verbose) {
@@ -1192,10 +1192,10 @@ mon.HMC  <- function(y, x, N, nu, l, mcmc, brn, thin, tau.in, sig.in, xi.in, xi0
   K[2 : (N + 1), 1] <- rep(0, N)
   K[2 : (N + 1), 2 : (N + 1)] <- covmat(knot = my_knots, nu = nu, l = l)
   K_inv <- solve(K)
-  XXK <- crossprod(X) / mean(sig_sam) + K_inv / mean(tau_sam)
+  XXK <- crossprod(X)/mean(sig_sam) + K_inv/mean(tau_sam)
   Amat <- diag(N + 1)
   Amat <- Amat[-1, ]
-  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y) / mean(sig_sam),
+  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y)/mean(sig_sam),
                      Amat = t(Amat), bvec = c(rep(0, N)), meq = 0)$solution
   MAP <- X %*% z_star # MAP estimate
   fmean <- rowMeans(fhat_sam) # mAP estimate
@@ -1251,7 +1251,7 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
   x <- sort(x)
   n <- length(y)
   N <- N1 * M
-  delta <- 1 / (N - 1)
+  delta <- 1/(N - 1)
   my_knots <- seq(from = 0, to = 1, by = delta)
   X <- fctphi(x = x, u = my_knots, N = N)
   
@@ -1272,7 +1272,7 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
   if (missing(thin))
     thin <- 1
   em <- mcmc + brn
-  ef <- mcmc / thin
+  ef <- mcmc/thin
   
   if (!missing(tau.fix))
     tau.in <- tau.fix
@@ -1338,26 +1338,26 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig / n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig/n))
     
     # sampling \sigma^2:
     y0 <- y_star - xi0
     if (missing(sig.fix))
-      sig <- 1 / rgamma(1, shape = n / 2, rate = sum(y0^2) / 2)
+      sig <- 1/rgamma(1, shape = n/2, rate = sum(y0^2)/2)
     
     # sampling \tau^2:
     if (missing(tau.fix))
-      tau <- 1 / rgamma(1, shape = N / 2, rate = (sum((t(L_inv) %*% xi_out)^2)) / 2)
+      tau <- 1/rgamma(1, shape = N/2, rate = (sum((t(L_inv) %*% xi_out)^2))/2)
     
     # storing MCMC samples:
     if (i > brn && i %% thin == 0) {
-      xi_sam[, (i - brn) / thin] <- xi_out
-      xi0_sam[(i - brn) / thin] <- xi0
-      sig_sam[(i - brn) / thin] <- sig
-      tau_sam[(i - brn) / thin] <- tau
-      nu_sam[(i - brn) / thin] <- nu_out
-      ell_sam[(i - brn) / thin] <- l_out
-      fhat_sam[, (i - brn) / thin] <- xi0 + Xxi
+      xi_sam[, (i - brn)/thin] <- xi_out
+      xi0_sam[(i - brn)/thin] <- xi0
+      sig_sam[(i - brn)/thin] <- sig
+      tau_sam[(i - brn)/thin] <- tau
+      nu_sam[(i - brn)/thin] <- nu_out
+      ell_sam[(i - brn)/thin] <- l_out
+      fhat_sam[, (i - brn)/thin] <- xi0 + Xxi
     }
     
     if (i %% 1000 == 0 && verbose) {
@@ -1379,10 +1379,10 @@ mon.inc.LS.ESS_hyp <- function(y, x, N1, M, nu.in, l.in, eta, mcmc, brn, thin, t
   K[2 : (N + 1), 1] <- rep(0, N)
   K[2 : (N + 1), 2 : (N + 1)] <- covmat(knot = my_knots, nu = mean(nu_sam), l = mean(ell_sam))
   K_inv <- solve(K)
-  XXK <- crossprod(X) / mean(sig_sam) + K_inv / mean(tau_sam)
+  XXK <- crossprod(X)/mean(sig_sam) + K_inv/mean(tau_sam)
   Amat <- diag(N + 1)
   Amat <- Amat[-1, ]
-  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y) / mean(sig_sam),
+  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y)/mean(sig_sam),
                      Amat = t(Amat), bvec = c(rep(0, N)), meq = 0)$solution
   MAP <- X %*% z_star # MAP estimate
   fmean <- rowMeans(fhat_sam) # mAP estimate
@@ -1433,12 +1433,12 @@ mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.i
   y <- y[order(x)]
   x <- sort(x)
   n <- length(y)
-  delta <- 1 / (N - 1)
+  delta <- 1/(N - 1)
   my_knots <- seq(from = 0, to = 1, by = delta)
   X <- fctphi(x = x, u = my_knots, N = N)
   
   if (missing(N))
-    N <- ceiling(n / 2) - 1
+    N <- ceiling(n/2) - 1
   if (missing(return.plot))
     return.plot <- TRUE
   if (!missing(sseed))
@@ -1456,7 +1456,7 @@ mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.i
   if (missing(thin))
     thin <- 1
   em <- mcmc + brn
-  ef <- mcmc / thin
+  ef <- mcmc/thin
   
   if (!missing(tau.fix))
     tau.in <- tau.fix
@@ -1522,26 +1522,26 @@ mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.i
     Xxi <- as.vector(X %*% xi_out)
     y_star <- y - Xxi
     if (missing(xi0.fix))
-      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig / n))
+      xi0 <- rnorm(n = 1, mean = mean(y_star), sd = sqrt(sig/n))
     
     # sampling \sigma^2:
     y0 <- y_star - xi0
     if (missing(sig.fix))
-      sig <- 1 / rgamma(1, shape = n / 2, rate = sum(y0^2) / 2)
+      sig <- 1/rgamma(1, shape = n/2, rate = sum(y0^2)/2)
     
     # sampling \tau^2:
     if (missing(tau.fix))
-      tau <- 1 / rgamma(1, shape = N / 2, rate = (sum((t(L_inv) %*% xi_out)^2)) / 2)
+      tau <- 1/rgamma(1, shape = N/2, rate = (sum((t(L_inv) %*% xi_out)^2))/2)
     
     # storing MCMC samples:
     if (i > brn && i %% thin == 0) {
-      xi_sam[, (i - brn) / thin] <- xi_out
-      xi0_sam[(i - brn) / thin] <- xi0
-      sig_sam[(i - brn) / thin] <- sig
-      tau_sam[(i - brn) / thin] <- tau
-      nu_sam[(i - brn) / thin] <- nu_out
-      ell_sam[(i - brn) / thin] <- l_out
-      fhat_sam[, (i - brn) / thin] <- xi0 + Xxi
+      xi_sam[, (i - brn)/thin] <- xi_out
+      xi0_sam[(i - brn)/thin] <- xi0
+      sig_sam[(i - brn)/thin] <- sig
+      tau_sam[(i - brn)/thin] <- tau
+      nu_sam[(i - brn)/thin] <- nu_out
+      ell_sam[(i - brn)/thin] <- l_out
+      fhat_sam[, (i - brn)/thin] <- xi0 + Xxi
     }
     
     if (i %% 1000 == 0 && verbose) {
@@ -1563,10 +1563,10 @@ mon.inc.WC.ESS_hyp <- function(y, x, N, nu.in, l.in, eta, mcmc, brn, thin, tau.i
   K[2 : (N + 1), 1] <- rep(0, N)
   K[2 : (N + 1), 2 : (N + 1)] <- covmat(knot = my_knots, nu = mean(nu_sam), l = mean(ell_sam))
   K_inv <- solve(K)
-  XXK <- crossprod(X) / mean(sig_sam) + K_inv / mean(tau_sam)
+  XXK <- crossprod(X)/mean(sig_sam) + K_inv/mean(tau_sam)
   Amat <- diag(N + 1)
   Amat <- Amat[-1, ]
-  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y) / mean(sig_sam),
+  z_star <- solve.QP(Dmat = XXK, dvec = as.vector(t(X) %*% y)/mean(sig_sam),
                      Amat = t(Amat), bvec = c(rep(0, N)), meq = 0)$solution
   MAP <- X %*% z_star # MAP estimate
   fmean <- rowMeans(fhat_sam) # mAP estimate
