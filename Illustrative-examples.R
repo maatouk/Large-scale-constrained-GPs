@@ -13,22 +13,22 @@ library(grid) ## viewport function
 
 ## choice of numerical examples illustrated 
 ## in the article (put 'yes' between quotations)
-illustr5split=''
-CholvsLS=''
-KLEvsLS_N=''
-WCvsLS_N=''
-WCvsLS_nu=''
-WCvsLS_theta=''
-LSvsLS.WC_N=''
-LSvsLS.WC_N1=''
-LS1M=''
-correlation=''
-monotoneC0Approx=''
-comp_pos_syn_LS_WC=''
-comp_monot_syn_LS_WC=''
+illustr5split = ''
+CholvsLS = ''
+KLEvsLS_N = ''
+WCvsLS_N = ''
+WCvsLS_nu = ''
+WCvsLS_theta = ''
+LSvsLS.WC_N = ''
+LSvsLS.WC_N1 = ''
+LS1M = ''
+correlation = ''
+monotoneC0Approx = ''
+comp_pos_syn_LS_WC = ''
+comp_monot_syn_LS_WC = ''
 
 
-if(illustr5split=='yes'){
+if (illustr5split == 'yes') {
   ###################################################
   ############# Illustration 5 split ################
   ###################################################
