@@ -120,7 +120,7 @@ min_g <- function(knot) {
 ## forming the circulant matrix:
 circulant <- function(x) {
   n <- length(x)
-  mat <- matrix(0, n, n)
+  mat <- matrix(0, nrow = n, ncol = n)
   for (j in 1 : n) {
     mat[j, ] <- c(x[-(1 : (n + 1 - j))], x[1 : (n + 1 - j)])
   }
@@ -203,7 +203,7 @@ samp.WC <- function(knot, nu, l, tausq, sseedWC = 1) {
 
 ## vectorize of samp.WC
 samp.WC_v <- function(nbsim, u, nu, l, tausq, sseedWC = 1) {
-  v <- matrix(NA, length(u), nbsim)
+  v <- matrix(NA, nrow = length(u), ncol = nbsim)
   for (j in 1 : nbsim) {
     v[,j] <- samp.WC(u, nu, l, tausq = 1, sseedWC)
   }
@@ -386,7 +386,7 @@ Fast.LS <- function(u, M, N1, nu, l, tausq, tol, sseedLS = 1) {
     solve(t(chol(Gamma11)))
   eta <- rcpp_rmvnorm(n = M, S = Gamma11, mu = rep(0, N1))
   # mvtnorm::rmvnorm(n=M,mean=rep(0,N1),Gamma11,method='chol')
-  etaT <- matrix(NA, M, N1)
+  etaT <- matrix(NA, nrow = M, ncol = N1)
   etaT[1, ] <- eta[1, ]
   for (i in 2 : M) {
     etaT[i, ] <- Ktilde %*% (etaT[i-1, ]) + L %*% (eta[i, ])
@@ -421,9 +421,9 @@ Fast.LS.WC <- function(u, M, N1, nu, l, tausq, tol, sseedWC = 1) {
     Ktilde <- Gamma12 %*% tinv(Gamma11)
   L <- t(chol(Gamma11 - Gamma12 %*% t(Ktilde))) %*% 
     solve(t(chol(Gamma11)))
-  eta <- matrix(NA, M, N1)
+  eta <- matrix(NA, nrow = M, ncol = N1)
   eta[1,] <- samp.WC(u1, nu = nu, l = l, tausq = tausq, sseedWC)
-  etaT <- matrix(NA, M, N1)
+  etaT <- matrix(NA, nrow = M, ncol = N1)
   etaT[1, ] <- eta[1, ]
   for (i in 2 : M) {
     eta[i, ] <- samp.WC(u1, nu = nu, l = l, tausq = tausq, sseedWC)
@@ -510,9 +510,9 @@ LS.KLE <- function(u, N1, p, M, nu, l, tausq, tol, sseedLS = 1) {
              (vector11))/
             sqrt(tcrossprod(value11)))
   L12 <- t(chol(diag(p) - crossprod(K12)))
-  eta <- matrnorm(M, p)
-  etaT <- matrix(NA, M, p)
-  f <- matrix(NA, M, N1)
+  eta <- matrnorm(n = M, p = p)
+  etaT <- matrix(NA, nrow = M, ncol = p)
+  f <- matrix(NA, nrow = M, ncol = N1)
   f[1, ] <- vector11 %*% (sqrt(value11) * eta[1, ])  
   etaT[1, ] <- eta[1, ]
   for (i in 2 : M) {
