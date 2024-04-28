@@ -70,9 +70,9 @@ if(CholvsLS=='yes'){
   N1 <- 50
   M <- N/N1
   trial <- 25
-  timeChol <- matrix(NA,trial,length(N))
-  timeLS <- matrix(NA,trial,length(N))
-  for(j in 1 : trial){
+  timeChol <- matrix(NA, nrow = trial, ncol = length(N))
+  timeLS <- matrix(NA, nrow = trial, ncol = length(N))
+  for(j in 1 : trial) {
     print(j)
     for(i in 1 : length(N)){
       u=seq(0,1,length=N[i])
@@ -108,8 +108,8 @@ if(KLEvsLS_N=='yes'){
   M <- N/N1 # nb of subdomains
   tol <- 1e-6 # tolerance
   trial <- 25 # nb of replicates
-  timeKLE <- matrix(NA,trial,length(N))
-  timeLS <- matrix(NA,trial,length(N))
+  timeKLE <- matrix(NA, nrow = trial, ncol = length(N))
+  timeLS <- matrix(NA, nrow = trial, ncol = length(N))
   for(j in 1 : trial){
     print(j)
     for(i in 1 : length(N)){
@@ -147,8 +147,8 @@ if(WCvsLS_N=='yes'){
   M <- N/N1 # nb of subdomains
   tol <- 1e-6 # tolerance
   trial <- 25 # nb of replicates
-  timeWC <- matrix(NA,trial,length(N))
-  timeLS <- matrix(NA,trial,length(N))
+  timeWC <- matrix(NA, nrow = trial, ncol = length(N))
+  timeLS <- matrix(NA, nrow = trial, ncol = length(N))
   for(j in 1 : trial){
     print(j)
     for(i in 1 : length(N)){
@@ -177,9 +177,9 @@ if(WCvsLS_nu=='yes'){
   N1 <- 100 # size of 1st subdomain
   M <- N/N1 # nb of subdomains
   trial <- 50 # nb of replicates
-  timeWC <- matrix(NA,length(nu),trial)
-  timeLS <- matrix(NA,length(nu),trial)
-  u <- seq(0,1,length=N)
+  timeWC <- matrix(NA, nrow = length(nu), ncol = trial)
+  timeLS <- matrix(NA, nrow = length(nu), ncol = trial)
+  u <- seq(0, 1, length = N)
   for(i in 1 : length(nu)){
     theta <- l_est(nu[i],c(0,1),0.05) # length-scale parameter MK
     print(i)
