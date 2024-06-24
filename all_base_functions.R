@@ -165,7 +165,7 @@ nnd_C <- function(knot, g, nu, l, tausq) {
 }
 
 ## computing the eigen values of C using FFT:
-eigval=function(knot, nu, l, tausq) {
+eigval <- function(knot, nu, l, tausq) {
   g <- min_g(knot)
   c.j <- nnd_C(knot, g, nu, l, tausq)$cj
   lambda <- Re(fft(c.j))
@@ -216,7 +216,7 @@ samp.WC_v <- function(nbsim, u, nu, l, tausq, sseedWC = 1) {
 #---------------------------------------------------
 ############ Functions for using ESS ###############
 #---------------------------------------------------
-## ESS for increasing constraints
+## ESS for increasing and positive fct estimation
 ESS <- function(beta, nu_ess, y, X, sigsq, eta, seeds = 1) {
   thetamin <- 0 
   thetamax <- 2 * pi
@@ -241,7 +241,7 @@ ESS <- function(beta, nu_ess, y, X, sigsq, eta, seeds = 1) {
   return(betaprime)       
 }
 
-## ESS for decreasing constraints
+## ESS for decreasing and negative fct estimation
 ESS.dec <- function(beta, nu_ess, y, X, sigsq, eta, seeds = 1) {
   thetamin <- 0
   thetamax <- 2 * pi
@@ -269,7 +269,7 @@ ESS.dec <- function(beta, nu_ess, y, X, sigsq, eta, seeds = 1) {
 
 
 ## Defining the loglik function to be used in ESS:
-## loglik calculates the log of the likelihood (increasing constraints)
+## loglik calculates the log of the likelihood (increasing and positive fct estimation)
 loglik <- function(y, X, sigsq, eta, beta) {
   mu <- y - X %*% beta
   val <- -sum(log(1 + exp(-eta * beta)))-
@@ -278,7 +278,7 @@ loglik <- function(y, X, sigsq, eta, beta) {
   return(val)
 }
 
-## Logliklihood for decreasing constraints
+## Logliklihood for decreasing and negative fct estimation
 loglik2 <- function(y, X, sigsq, eta, beta) {
   mu <- y - X %*% beta
   val <- -sum(log(1 + exp(eta * beta))) - sum(mu^2)/(2 * sigsq)
